@@ -3,7 +3,9 @@ Go, echo, testing, testfy, AWS, ec2
 
 # 構成
 fibo_api/router：routerの設定を記述する
+
 fibo_api/handler：ルーティングされた後の動きを記述する
+
 fibo_api/utils：汎用的なロジックを記述する
 
 # エンドポイント
