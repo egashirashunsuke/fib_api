@@ -1,14 +1,23 @@
 package handler
 
 import (
-	"fibo_api/utils"
 	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
 
-func FiboHandler(c echo.Context) error {
+// FiboCalculatorインターフェース
+type FiboCalculator interface {
+	Fibocal(n int) (string, error)
+}
+
+// Handler構造体
+type Handler struct {
+	Calculator FiboCalculator
+}
+
+func (h *Handler) FiboHandler(c echo.Context) error {
 	nStr := c.QueryParam("n")
 	if nStr == "" {
 		return c.JSON(http.StatusBadRequest, map[string]string{
@@ -25,7 +34,7 @@ func FiboHandler(c echo.Context) error {
 		})
 	}
 
-	result, err := utils.Fibocal(n)
+	result, err := h.Calculator.Fibocal(n)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{
 			"status":  "400",
@@ -34,6 +43,6 @@ func FiboHandler(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"result": result.String(),
+		"result": result,
 	})
 }

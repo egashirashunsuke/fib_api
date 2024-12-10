@@ -8,6 +8,7 @@ import (
 	_ "net/http"
 
 	"fibo_api/handler"
+	"fibo_api/utils"
 
 	"github.com/labstack/echo/v4"
 )
@@ -26,7 +27,11 @@ func SetRouter(e *echo.Echo) error {
 		return c.String(200, "OK")
 	})
 
-	e.GET("/fib", handler.FiboHandler)
+	h := &handler.Handler{
+		Calculator: &utils.RealFiboCalculator{}, // 実際の計算ロジックを注入
+	}
+
+	e.GET("/fib", h.FiboHandler)
 
 	err := e.Start(":80")
 	return err
