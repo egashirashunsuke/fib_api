@@ -1,5 +1,5 @@
 # 使用技術
-Go, echo, testing, testfy
+Go, echo, testing, testfy, AWS, ec2
 
 # 構成
 fibo_api/router：routerの設定を記述する
