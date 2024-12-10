@@ -18,10 +18,12 @@ func TestFibocal(t *testing.T) {
 		{n: -5, expected: "", hasError: true},
 	}
 
+	calculator := RealFiboCalculator{}
+
 	//t.Runを使うことで，テストを階層化
 	for _, test := range tests {
 		t.Run("Fibocal", func(t *testing.T) {
-			result, err := Fibocal(test.n)
+			result, err := calculator.Fibocal(test.n)
 
 			if test.hasError {
 				if err == nil {
@@ -32,8 +34,8 @@ func TestFibocal(t *testing.T) {
 					t.Errorf("n=%dのとき、エラーが期待されないがエラーが起きた: %v", test.n, err)
 				}
 
-				if result.String() != test.expected {
-					t.Errorf("n=%dのとき、 %sが期待されるが %sがでた", test.n, test.expected, result.String())
+				if result != test.expected {
+					t.Errorf("n=%dのとき、 %sが期待されるが %sがでた", test.n, test.expected, result)
 				}
 			}
 		})
