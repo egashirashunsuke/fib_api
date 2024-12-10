@@ -7,9 +7,12 @@ import (
 
 	_ "net/http"
 
+	"fibo_api/handler"
+
 	"github.com/labstack/echo/v4"
 )
 
+// ルーターの設定を書くファイル
 func SetRouter(e *echo.Echo) error {
 
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
@@ -23,7 +26,7 @@ func SetRouter(e *echo.Echo) error {
 		return c.String(200, "OK")
 	})
 
-	e.GET("/fib", FiboHandler)
+	e.GET("/fib", handler.FiboHandler)
 
 	err := e.Start(":80")
 	return err
